@@ -1,6 +1,46 @@
 @import "tailwindcss";
 
 :root {
+  /* Colors */
+  --color-light-gold: oklch(85.621% 0.11997 89.349);
+  --color-normal-gold: oklch(71.355% 0.11888 84.586);
+  --color-white: oklch(100% 0.00011 271.152);
+  --color-gray: oklch(88.531% 0.0001 271.152);
+  --color-dark-black: oklch(14.958% 0.00002 271.152);
+  --image-normal-gold-gradient: linear-gradient(
+    90deg,
+    oklch(78.249% 0.15449 76.817),
+    oklch(47.669% 0.15545 37.023)
+  );
+  --image-disabled-gold-gradient-: linear-gradient(
+    90deg,
+    oklch(78.249% 0.15449 76.817),
+    oklch(47.669% 0.15545 37.023),
+    30%
+  );
+  --color-maroon: oklch(43.756% 0.14743 36.697);
+  --image-hover-gold-gradient: linear-gradient(
+    90deg,
+    oklch(59.772% 0.11654 77.078),
+    oklch(29.018% 0.09188 38.669)
+  );
+  --image-light-gold-gradient: linear-gradient(
+    90deg,
+    oklch(93.116% 0.07027 83.581),
+    oklch(75.916% 0.14904 40.244)
+  );
+  --image-normal-gray-gradient: linear-gradient(
+    90deg,
+    oklch(75.721% 0.00009 271.152),
+    oklch(40.912% 0.00005 271.152)
+  );
+  --color-error-message: oklch(75.721% 0.00009 271.152);
+  --color-light-black: oklch(26.862% 0.00003 271.152);
+}
+
+@theme inline {
+  --font-jakarta-sans: var(--font-plus-jakarta-sans);
+
   /* Text Guidelines */
   --text-h1: 61px;
   --text-h1--line-height: 73.2px;
@@ -113,46 +153,6 @@
   --text-c9: 10px;
   --text-c9--line-height: 12px;
   --text-c9--font-weight: 400;
-
-  /* Colors */
-  --color-light-gold: oklch(85.621% 0.11997 89.349);
-  --color-normal-gold: oklch(71.355% 0.11888 84.586);
-  --color-white: oklch(100% 0.00011 271.152);
-  --color-gray: oklch(88.531% 0.0001 271.152);
-  --color-dark-black: oklch(14.958% 0.00002 271.152);
-  --image-normal-gold-gradient: linear-gradient(
-    90deg,
-    oklch(78.249% 0.15449 76.817),
-    oklch(47.669% 0.15545 37.023)
-  );
-  --image-disabled-gold-gradient-: linear-gradient(
-    90deg,
-    oklch(78.249% 0.15449 76.817),
-    oklch(47.669% 0.15545 37.023),
-    30%
-  );
-  --color-maroon: oklch(43.756% 0.14743 36.697);
-  --image-hover-gold-gradient: linear-gradient(
-    90deg,
-    oklch(59.772% 0.11654 77.078),
-    oklch(29.018% 0.09188 38.669)
-  );
-  --image-light-gold-gradient: linear-gradient(
-    90deg,
-    oklch(93.116% 0.07027 83.581),
-    oklch(75.916% 0.14904 40.244)
-  );
-  --image-normal-gray-gradient: linear-gradient(
-    90deg,
-    oklch(75.721% 0.00009 271.152),
-    oklch(40.912% 0.00005 271.152)
-  );
-  --color-error-message: oklch(75.721% 0.00009 271.152);
-  --color-light-black: oklch(26.862% 0.00003 271.152);
-}
-
-@theme inline {
-  --font-jakarta-sans: var(--font-plus-jakarta-sans);
 
   /* Colors */
   --color-light-gold: var(--color-light-gold);
