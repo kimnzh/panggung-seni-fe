@@ -160,12 +160,14 @@
   --color-white: var(--color-white);
   --color-gray: var(--color-gray);
   --color-dark-black: var(--color-dark-black);
-  --image-normal-gold-gradient: var(--image-normal-gold-gradient);
-  --image-disabled-gold-gradient-: var(--image-disabled-gold-gradient-);
+  --background-image-normal-gold-gradient: var(--image-normal-gold-gradient);
+  --background-image-disabled-gold-gradient: var(
+    --image-disabled-gold-gradient-
+  );
   --color-maroon: var(--color-maroon);
-  --image-hover-gold-gradient: var(--image-hover-gold-gradient);
-  --image-light-gold-gradient: var(--image-light-gold-gradient);
-  --image-normal-gray-gradient: var(--image-normal-gray-gradient);
+  --background-image-hover-gold-gradient: var(--image-hover-gold-gradient);
+  --background-image-light-gold-gradient: var(--image-light-gold-gradient);
+  --background-image-normal-gray-gradient: var(--image-normal-gray-gradient);
   --color-error-message: var(--color-error-message);
   --color-light-black: var(--color-light-black);
 }
