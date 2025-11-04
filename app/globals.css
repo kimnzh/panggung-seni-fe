@@ -1,26 +1,177 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Text Guidelines */
+  --text-h1: 61px;
+  --text-h1--line-height: 73.2px;
+  --text-h1--font-weight: 700;
+  --text-h2: 49px;
+  --text-h2--line-height: 58.8px;
+  --text-h2--font-weight: 700;
+  --text-h3: 39px;
+  --text-h3--line-height: 46.8px;
+  --text-h3--font-weight: 700;
+  --text-h4: 31px;
+  --text-h4--font-weight: 700;
+  --text-h4--line-height: 37.2px;
+  --text-h5: 25px;
+  --text-h5--line-height: 30px;
+  --text-h5--font-weight: 700;
+  --text-h6: 20px;
+  --text-h6--line-height: 24px;
+  --text-h6--font-weight: 700;
+  --text-h7: 16px;
+  --text-h7--line-height: 19.2px;
+  --text-h7--font-weight: 700;
+  --text-h8: 13px;
+  --text-h8--line-height: 15.6px;
+  --text-h8--font-weight: 700;
+  --text-h9: 10px;
+  --text-h9--line-height: 12px;
+  --text-h9--font-weight: 700;
+
+  --text-s1: 61px;
+  --text-s1--line-height: 73.2px;
+  --text-s1--font-weight: 600;
+  --text-s2: 49px;
+  --text-s2--line-height: 58.8px;
+  --text-s2--font-weight: 600;
+  --text-s3: 39px;
+  --text-s3--line-height: 46.8px;
+  --text-s3--font-weight: 600;
+  --text-s4: 31px;
+  --text-s4--font-weight: 600;
+  --text-s4--line-height: 37.2px;
+  --text-s5: 25px;
+  --text-s5--line-height: 30px;
+  --text-s5--font-weight: 600;
+  --text-s6: 20px;
+  --text-s6--line-height: 24px;
+  --text-s6--font-weight: 600;
+  --text-s7: 16px;
+  --text-s7--line-height: 19.2px;
+  --text-s7--font-weight: 600;
+  --text-s8: 13px;
+  --text-s8--line-height: 15.6px;
+  --text-s8--font-weight: 600;
+  --text-s9: 10px;
+  --text-s9--line-height: 12px;
+  --text-s9--font-weight: 600;
+
+  --text-b1: 61px;
+  --text-b1--line-height: 73.2px;
+  --text-b1--font-weight: 500;
+  --text-b2: 49px;
+  --text-b2--line-height: 58.8px;
+  --text-b2--font-weight: 500;
+  --text-b3: 39px;
+  --text-b3--line-height: 46.8px;
+  --text-b3--font-weight: 500;
+  --text-b4: 31px;
+  --text-b4--font-weight: 500;
+  --text-b4--line-height: 37.2px;
+  --text-b5: 25px;
+  --text-b5--line-height: 30px;
+  --text-b5--font-weight: 500;
+  --text-b6: 20px;
+  --text-b6--line-height: 24px;
+  --text-b6--font-weight: 500;
+  --text-b7: 16px;
+  --text-b7--line-height: 19.2px;
+  --text-b7--font-weight: 500;
+  --text-b8: 13px;
+  --text-b8--line-height: 15.6px;
+  --text-b8--font-weight: 500;
+  --text-b9: 10px;
+  --text-b9--line-height: 12px;
+  --text-b9--font-weight: 500;
+
+  --text-c1: 61px;
+  --text-c1--line-height: 73.2px;
+  --text-c1--font-weight: 400;
+  --text-c2: 49px;
+  --text-c2--line-height: 58.8px;
+  --text-c2--font-weight: 400;
+  --text-c3: 39px;
+  --text-c3--line-height: 46.8px;
+  --text-c3--font-weight: 400;
+  --text-c4: 31px;
+  --text-c4--font-weight: 400;
+  --text-c4--line-height: 37.2px;
+  --text-c5: 25px;
+  --text-c5--line-height: 30px;
+  --text-c5--font-weight: 400;
+  --text-c6: 20px;
+  --text-c6--line-height: 24px;
+  --text-c6--font-weight: 400;
+  --text-c7: 16px;
+  --text-c7--line-height: 19.2px;
+  --text-c7--font-weight: 400;
+  --text-c8: 13px;
+  --text-c8--line-height: 15.6px;
+  --text-c8--font-weight: 400;
+  --text-c9: 10px;
+  --text-c9--line-height: 12px;
+  --text-c9--font-weight: 400;
+
+  /* Colors */
+  --color-light-gold: oklch(85.621% 0.11997 89.349);
+  --color-normal-gold: oklch(71.355% 0.11888 84.586);
+  --color-white: oklch(100% 0.00011 271.152);
+  --color-gray: oklch(88.531% 0.0001 271.152);
+  --color-dark-black: oklch(14.958% 0.00002 271.152);
+  --image-normal-gold-gradient: linear-gradient(
+    90deg,
+    oklch(78.249% 0.15449 76.817),
+    oklch(47.669% 0.15545 37.023)
+  );
+  --image-disabled-gold-gradient-: linear-gradient(
+    90deg,
+    oklch(78.249% 0.15449 76.817),
+    oklch(47.669% 0.15545 37.023),
+    30%
+  );
+  --color-maroon: oklch(43.756% 0.14743 36.697);
+  --image-hover-gold-gradient: linear-gradient(
+    90deg,
+    oklch(59.772% 0.11654 77.078),
+    oklch(29.018% 0.09188 38.669)
+  );
+  --image-light-gold-gradient: linear-gradient(
+    90deg,
+    oklch(93.116% 0.07027 83.581),
+    oklch(75.916% 0.14904 40.244)
+  );
+  --image-normal-gray-gradient: linear-gradient(
+    90deg,
+    oklch(75.721% 0.00009 271.152),
+    oklch(40.912% 0.00005 271.152)
+  );
+  --color-error-message: oklch(75.721% 0.00009 271.152);
+  --color-light-black: oklch(26.862% 0.00003 271.152);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-jakarta-sans: var(--font-plus-jakarta-sans);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Colors */
+  --color-light-gold: var(--color-light-gold);
+  --color-normal-gold: var(--color-normal-gold);
+  --color-white: var(--color-white);
+  --color-gray: var(--color-gray);
+  --color-dark-black: var(--color-dark-black);
+  --image-normal-gold-gradient: var(--image-normal-gold-gradient);
+  --image-disabled-gold-gradient-: var(--image-disabled-gold-gradient-);
+  --color-maroon: var(--color-maroon);
+  --image-hover-gold-gradient: var(--image-hover-gold-gradient);
+  --image-light-gold-gradient: var(--image-light-gold-gradient);
+  --image-normal-gray-gradient: var(--image-normal-gray-gradient);
+  --color-error-message: var(--color-error-message);
+  --color-light-black: var(--color-light-black);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #000000;
+  color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
