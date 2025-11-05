@@ -24,13 +24,21 @@ export default function DesignSystemPage() {
       </div>
 
       {/* Dropdown */}
-      <div>
+      <div className="flex flex-wrap gap-2 justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger>Choice 1</DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem>Choice 2</DropdownMenuItem>
             <DropdownMenuItem>Choice 3</DropdownMenuItem>
             <DropdownMenuItem>Choice 4</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger variant="outline">Choice 1</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem variant="outline">Choice 2</DropdownMenuItem>
+            <DropdownMenuItem variant="outline">Choice 3</DropdownMenuItem>
+            <DropdownMenuItem variant="outline">Choice 4</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

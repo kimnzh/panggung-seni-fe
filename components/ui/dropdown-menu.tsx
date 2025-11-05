@@ -10,29 +10,12 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { cva, VariantProps } from "class-variance-authority";
-
-const dropdownVariants = cva("", {
-  variants: {
-    variant: {
-      "gold-fill":
-        "bg-normal-gold-gradient hover:bg-hover-gold-gradient disabled:bg-disabled-gold-gradient text-white hover:text-gray",
-      "gold-outline":
-        "bg-normal-gold-gradient hover:bg-hover-gold-gradient disabled:bg-disabled-gold-gradient text-white hover:text-gray",
-    },
-  },
-  defaultVariants: {
-    variant: "gold-fill",
-  },
-});
 
 function DropdownMenu({
-  variant,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Root> &
-  VariantProps<typeof dropdownVariants> & {
-    asChild?: boolean;
-  }) {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Root> & {
+  asChild?: boolean;
+}) {
   return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
 }
 
@@ -47,17 +30,21 @@ function DropdownMenuPortal({
 function DropdownMenuTrigger({
   className,
   children,
+  variant = "fill",
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>) {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger> & {
+  variant?: "fill" | "outline";
+}) {
   return (
     <DropdownMenuPrimitive.Trigger
       data-slot="dropdown-menu-trigger"
+      data-variant={variant}
       className={cn(
-        "cursor-pointer font-jakarta-sans w-60.5 md:w-96 px-6 py-3 text-s9! md:text-s7! bg-normal-gold-gradient data-[state=open]:rounded-b-xs hover:bg-hover-gold-gradient rounded-lg text-white hover:text-gray group",
+        "cursor-pointer data-[variant=outline]:data-[state=closed]:border border-light-black font-jakarta-sans overflow-hidden w-60.5 md:w-96 text-s9! md:text-s7! bg-normal-gold-gradient data-[variant=outline]:p-px data-[variant=outline]:data-[state=open]:p-0.5 data-[state=open]:rounded-b-xs hover:bg-hover-gold-gradient rounded-lg data-[variant=outline]:text-normal-gold data-[variant=outline]:hover:text-light-gold group",
         className
       )}
       children={
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full px-6 py-3 group-data-[variant=outline]:rounded-[10px] group-data-[state=open]:rounded-b-[3px]! group-data-[variant=outline]:bg-light-black group-data-[variant=outline]:hover:bg-dark-black flex justify-between items-center">
           {children}
           <ChevronDown className="transition-transform duration-200 group-data-[state=open]:-rotate-180 max-md:w-4 max-md:h-4" />
         </div>
@@ -98,11 +85,11 @@ function DropdownMenuGroup({
 function DropdownMenuItem({
   className,
   inset,
-  variant = "default",
+  variant = "fill",
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
   inset?: boolean;
-  variant?: "default" | "destructive";
+  variant?: "fill" | "outline" | "destructive";
 }) {
   return (
     <DropdownMenuPrimitive.Item
@@ -110,7 +97,7 @@ function DropdownMenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "px-6 py-3 transition-all text-s9! md:text-s7! cursor-pointer bg-light-black focus:bg-dark-black data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex items-center gap-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 last:rounded-b-[11px] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "px-6 py-3 transition-all text-s9! md:text-s7! cursor-pointer bg-light-black focus:bg-dark-black data-[variant=outline]:text-normal-gold data-[variant=outline]:hover:text-light-gold data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex items-center gap-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 last:rounded-b-[11px] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
