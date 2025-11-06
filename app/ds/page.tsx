@@ -16,12 +16,21 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import AppsIcon from "@mui/icons-material/Apps";
+import { Input } from "@/components/ui/input";
 
 export default function DesignSystemPage() {
   return (
-    <main className="flex flex-col items-center pt-12 gap-12 px-20">
+    <main className="flex flex-col items-center pt-12 gap-12 px-20 py-20">
       {/* Buttons */}
       <div>
         <Button>
@@ -135,6 +144,62 @@ export default function DesignSystemPage() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
+      {/* Card */}
+      <Card className="w-full max-w-lg">
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+          <CardDescription>
+            Enter your email below to login to your account
+          </CardDescription>
+          <CardAction>Sign Up</CardAction>
+        </CardHeader>
+        <CardContent>
+          <form>
+            <div className="flex flex-col gap-6">
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="m@example.com"
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Password</Label>
+                  <a
+                    href="#"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  >
+                    Forgot your password?
+                  </a>
+                </div>
+                <Input id="password" type="password" required />
+              </div>
+            </div>
+          </form>
+        </CardContent>
+        <CardFooter className="flex-col gap-2">
+          <Button type="submit" className="w-full">
+            Login
+          </Button>
+          <Button className="w-full">Login with Google</Button>
+        </CardFooter>
+      </Card>
+
+      {/* Inputs */}
+
+      <div className="w-full space-y-2">
+        <Input variant="search" type="email" placeholder="Email" />
+        <Input
+          variant="search"
+          type="email"
+          status="error"
+          placeholder="Email"
+        />
+      </div>
     </main>
   );
 }

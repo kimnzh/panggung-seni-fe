@@ -36,7 +36,7 @@
     oklch(75.721% 0.00009 271.152),
     oklch(40.912% 0.00005 271.152)
   );
-  --color-error-message: oklch(75.721% 0.00009 271.152);
+  --color-error-message: oklch(57.707% 0.21516 27.312);
   --color-light-black: oklch(26.862% 0.00003 271.152);
   --radius: 0.75rem;
   --background: oklch(1 0 0);
