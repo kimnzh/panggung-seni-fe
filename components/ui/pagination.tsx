@@ -27,14 +27,14 @@ function PaginationContent({
   return (
     <ul
       data-slot="pagination-content"
-      className={cn("flex flex-row items-center gap-1", className)}
+      className={cn("flex flex-row items-center gap-2", className)}
       {...props}
     />
   );
 }
 
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
-  return <li data-slot="pagination-item" {...props} />;
+  return <li data-slot="pagination-item" {...props} className="size-8" />;
 }
 
 type PaginationLinkProps = {
@@ -43,51 +43,103 @@ type PaginationLinkProps = {
   React.ComponentProps<"a">;
 
 function PaginationLink({
+  children,
   className,
   isActive,
+  disabled = false,
   ...props
-}: PaginationLinkProps) {
+}: PaginationLinkProps & { disabled?: boolean }) {
+  const { onClick, href, ...rest } = props as React.ComponentProps<"a">;
+
+  const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
+    if (disabled) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    onClick?.(e);
+  };
+
   return (
     <a
       aria-current={isActive ? "page" : undefined}
+      aria-disabled={disabled || undefined}
       data-slot="pagination-link"
       data-active={isActive}
-      className={cn("", className)}
-      {...props}
+      tabIndex={disabled ? -1 : 0}
+      href={disabled ? undefined : href}
+      onClick={handleClick}
+      className={cn(
+        "text-transparent",
+        disabled && "cursor-not-allowed",
+        className
+      )}
+      children={
+        <div
+          className={`${
+            disabled ? "bg-light-black" : "bg-normal-gold-gradient"
+          } font-jakarta-sans p-px text-s8 size-8 rounded-xs`}
+        >
+          <div
+            className={`${
+              disabled
+                ? "bg-light-black"
+                : isActive
+                ? "text-white"
+                : "bg-dark-black"
+            } h-full rounded-[3px] flex justify-center items-center`}
+          >
+            <span className="bg-clip-text bg-normal-gold-gradient">
+              {children}
+            </span>
+          </div>
+        </div>
+      }
+      {...rest}
     />
   );
 }
 
 function PaginationPrevious({
+  disabled = false,
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) {
+}: React.ComponentProps<typeof PaginationLink> & { disabled?: boolean }) {
   return (
     <PaginationLink
       aria-label="Go to previous page"
       size="default"
-      className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
+      className={cn("bg-light-black", className)}
+      disabled={disabled}
       {...props}
     >
-      <ChevronLeftIcon />
-      <span className="hidden sm:block">Previous</span>
+      <ChevronLeftIcon
+        className={`${
+          disabled ? "text-[#C4CDD5] pointer-events-none" : "text-normal-gold"
+        } size-4`}
+      />
     </PaginationLink>
   );
 }
 
 function PaginationNext({
+  disabled = false,
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) {
+}: React.ComponentProps<typeof PaginationLink> & { disabled?: boolean }) {
   return (
     <PaginationLink
       aria-label="Go to next page"
       size="default"
-      className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
+      className={cn("bg-light-black", className)}
+      disabled={disabled}
       {...props}
     >
-      <span className="hidden sm:block">Next</span>
-      <ChevronRightIcon />
+      <ChevronRightIcon
+        className={`${
+          disabled ? "text-[#C4CDD5] pointer-events-none" : "text-normal-gold"
+        } size-4`}
+      />
     </PaginationLink>
   );
 }
@@ -100,10 +152,13 @@ function PaginationEllipsis({
     <span
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn("flex size-9 items-center justify-center", className)}
+      className={cn(
+        "flex items-center justify-center bg-dark-black h-full rounded-[3px]",
+        className
+      )}
       {...props}
     >
-      <MoreHorizontalIcon className="size-4" />
+      <MoreHorizontalIcon className="text-normal-gold size-4" />
       <span className="sr-only">More pages</span>
     </span>
   );

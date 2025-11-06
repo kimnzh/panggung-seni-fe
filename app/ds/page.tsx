@@ -25,8 +25,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import AppsIcon from "@mui/icons-material/Apps";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+import AppsIcon from "@mui/icons-material/Apps";
 
 export default function DesignSystemPage() {
   return (
@@ -41,6 +52,11 @@ export default function DesignSystemPage() {
       </div>
 
       {/* Dropdown */}
+      <div className="flex flex-wrap gap-2 justify-center">
+        <Badge>Chips</Badge>
+      </div>
+
+      {/* Badge */}
       <div className="flex flex-wrap gap-2 justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger>Choice 1</DropdownMenuTrigger>
@@ -202,7 +218,6 @@ export default function DesignSystemPage() {
       </Card>
 
       {/* Inputs */}
-
       <div className="w-full space-y-2">
         <Input variant="search" type="email" placeholder="Email" />
         <Input variant="search" type="email" disabled placeholder="Email" />
@@ -213,6 +228,31 @@ export default function DesignSystemPage() {
           placeholder="Email"
         />
       </div>
+
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href="#" disabled />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" isActive>
+              2
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">3</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </main>
   );
 }
