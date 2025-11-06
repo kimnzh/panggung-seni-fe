@@ -19,7 +19,7 @@ function Input({
     <div
       data-variant={variant}
       data-status={status}
-      className="w-full flex items-center relative group text-normal-gold data-[status=error]:text-[#FF7474] "
+      className="font-jakarta-sans w-full flex items-center relative group text-normal-gold data-[status=error]:text-[#FF7474] "
     >
       <Search className="absolute left-5 size-3 md:size-4 group-data-[variant=default]:hidden z-20" />
       <input
