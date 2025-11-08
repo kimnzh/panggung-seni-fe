@@ -1,7 +1,12 @@
+"use client";
 import Image from "next/image";
 import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
+import { useState } from "react";
 
 const LoginPageModules = () => {
+  const [isRegister, setIsRegister] = useState<boolean>(false);
+
   return (
     <main className="min-h-screen flex overflow-hidden">
       {/* Left Side */}
@@ -46,8 +51,17 @@ const LoginPageModules = () => {
 
       {/* Right Side */}
       <div className="relative flex-1/2">
-        {/* Login Form */}
-        <LoginForm />
+        {isRegister ? (
+          <>
+            {/* Register Form */}
+            <RegisterForm setIsRegister={setIsRegister} />
+          </>
+        ) : (
+          <>
+            {/* Login Form */}
+            <LoginForm setIsRegister={setIsRegister} />
+          </>
+        )}
 
         {/* Background Assets */}
         <Image

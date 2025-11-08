@@ -2,24 +2,35 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Eye, EyeOff } from "lucide-react";
-import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 
-interface LoginFormProps {
+interface RegisterFormProps {
   setIsRegister: Dispatch<SetStateAction<boolean>>;
 }
 
-const LoginForm = ({ setIsRegister }: LoginFormProps) => {
+const RegisterForm = ({ setIsRegister }: RegisterFormProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center px-16 space-y-12">
-      {/* TItle */}
-      <h1 className="text-h3">Masuk</h1>
+      {/* Title */}
+      <h1 className="text-h3">Daftar</h1>
 
       {/* Login Form */}
       <form action="POST" className="w-full space-y-8">
+        {/* Username */}
+        <div>
+          <Label className="text-s7! mb-2">Username</Label>
+          <Input type="username" placeholder="Username" />
+        </div>
+
         {/* Email */}
         <div>
           <Label className="text-s7! mb-2">Email</Label>
@@ -47,47 +58,39 @@ const LoginForm = ({ setIsRegister }: LoginFormProps) => {
           </div>
         </div>
 
-        {/* Forgot Password */}
-        <button
-          className="w-full text-end text-s7 cursor-pointer hover:underline"
-          onClick={() => null}
-        >
-          Lupa Password?
-        </button>
+        {/* Role */}
+        <div>
+          <Label className="text-s7! mb-2">Role</Label>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="w-full!" variant="outline">
+              Choice 1
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem variant="outline">Choice 2</DropdownMenuItem>
+              <DropdownMenuItem variant="outline">Choice 3</DropdownMenuItem>
+              <DropdownMenuItem variant="outline">Choice 4</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
         {/* Buttons */}
         <div className="grid grid-cols-2 gap-4">
-          <Button>Masuk</Button>
-          <Button variant="secondary" onClick={() => setIsRegister(true)}>
-            Daftar
+          <Button>Daftar</Button>
+          <Button variant="secondary" onClick={() => setIsRegister(false)}>
+            Masuk
           </Button>
         </div>
       </form>
 
-      {/* Separator */}
-      <div className=" w-full flex gap-4 text-nowrap text-s7 items-center">
-        <div className="bg-white h-px w-full"></div>
-        Akses Cepat
-        <div className="bg-white h-px w-full"></div>
-      </div>
-
-      {/* OAuth */}
-      <div className="grid grid-rows-2 w-full gap-6">
-        <Button className="bg-white hover:bg-gray font-bold text-black hover:text-black">
-          <div className="relative size-6">
-            <Image src="/icons/google.svg" alt="google" fill />
-          </div>
-          Google
-        </Button>
-        <Button className="bg-white hover:bg-gray font-bold text-blue-500 hover:text-blue-500">
-          <div className="relative size-6">
-            <Image src="/icons/facebook.svg" alt="facebook" fill />
-          </div>
-          Facebook
-        </Button>
-      </div>
+      {/* Redirect Login */}
+      <button
+        className="text-center text-s7 cursor-pointer hover:underline"
+        onClick={() => setIsRegister(false)}
+      >
+        Masuk, jika kamu sudah memiliki akun.
+      </button>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
