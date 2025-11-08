@@ -13,7 +13,7 @@ const Navbar = () => {
         </div>
         PanggungSeni.id
         <div className="ml-2 w-96">
-          <Input />
+          <Input variant="search" />
         </div>
       </div>
 
@@ -38,7 +38,7 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         <div className="flex text-s7 text-light-gold items-center rounded-lg border border-light-gold px-2 gap-1 h-11.75">
           <div className="relative size-6">
-            <Image src="/coin.svg" alt="coin" fill />
+            <Image src="/icons/coin.svg" alt="coin" fill />
           </div>
           100
         </div>

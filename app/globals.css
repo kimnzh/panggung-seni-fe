@@ -243,8 +243,7 @@
 }
 
 body {
-  background: #000000;
-  color: #ffffff;
+  @apply bg-dark-black text-white;
 }
 
 .dark {
