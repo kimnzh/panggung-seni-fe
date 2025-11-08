@@ -35,7 +35,7 @@ const Navbar = () => {
       </ul>
 
       {/* User Info */}
-      <div className="flex gap-4">
+      <div className="flex items-center gap-4">
         <div className="flex text-s7 text-light-gold items-center rounded-lg border border-light-gold px-2 gap-1 h-11.75">
           <div className="relative size-6">
             <Image src="/coin.svg" alt="coin" fill />
