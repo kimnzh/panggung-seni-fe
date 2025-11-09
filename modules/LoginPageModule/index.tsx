@@ -2,11 +2,31 @@
 import Image from "next/image";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { authClient } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
-const LoginPageModules = () => {
+const LoginPageModule = () => {
+  const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
+
   const [isRegister, setIsRegister] = useState<boolean>(false);
 
+  // Session handling
+  useEffect(() => {
+    if (!isPending && session?.user) {
+      router.replace("/");
+    }
+  }, [isPending]);
+
+  // Loading screen
+  if (isPending) {
+    <main className="bg-normal-gold-gradient flex min-h-screen items-center justify-center font-jakarta-sans text-h1 text-center">
+      Memuat...
+    </main>;
+  }
+
+  // Main page
   return (
     <main className="min-h-screen flex overflow-hidden">
       {/* Left Side */}
@@ -90,4 +110,4 @@ const LoginPageModules = () => {
   );
 };
 
-export default LoginPageModules;
+export default LoginPageModule;

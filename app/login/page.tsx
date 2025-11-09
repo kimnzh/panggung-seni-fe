@@ -1,5 +1,5 @@
-import LoginPageModules from "@/modules/LoginPageModules";
+import LoginPageModule from "@/modules/LoginPageModule";
 
 export default function LoginPage() {
-  return <LoginPageModules />;
+  return <LoginPageModule />;
 }

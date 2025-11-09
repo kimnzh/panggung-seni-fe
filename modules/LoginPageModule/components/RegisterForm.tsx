@@ -40,14 +40,11 @@ const RegisterForm = ({ setIsRegister }: RegisterFormProps) => {
     try {
       const data = await handleRegister({ name, email, password, role });
       console.log("Register successful: ", data);
+      redirect(process.env.NEXT_PUBLIC_FRONTEND_URL || "");
     } catch (err: any) {
-      setError(err.message || "");
+      setError(err.message || "Error");
     } finally {
       setIsLoading(false);
-    }
-
-    if (!error) {
-      redirect(process.env.NEXT_PUBLIC_FRONTEND_URL || "");
     }
   };
 

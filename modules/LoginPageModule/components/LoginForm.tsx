@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { handleLogin } from "@/lib/auth";
+import { authClient, handleLogin } from "@/lib/auth";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -34,14 +34,12 @@ const LoginForm = ({ setIsRegister }: LoginFormProps) => {
         email,
         password,
       });
+      console.log("Login successful: ", data);
+      redirect(process.env.NEXT_PUBLIC_FRONTEND_URL || "");
     } catch (err: any) {
       setError(err.message || "");
     } finally {
       setIsLoading(false);
-    }
-
-    if (!error) {
-      redirect(process.env.NEXT_PUBLIC_FRONTEND_URL || "");
     }
   };
 
@@ -127,7 +125,12 @@ const LoginForm = ({ setIsRegister }: LoginFormProps) => {
 
       {/* OAuth */}
       <div className="grid grid-rows-2 w-full gap-6">
-        <Button className="bg-white hover:bg-gray font-bold text-black hover:text-black">
+        <Button
+          className="bg-white hover:bg-gray font-bold text-black hover:text-black"
+          onClick={async () => {
+            await authClient.signOut();
+          }}
+        >
           <div className="relative size-6">
             <Image src="/icons/google.svg" alt="google" fill />
           </div>

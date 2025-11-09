@@ -1,15 +1,22 @@
-"use server";
-import {
-  LoginProps,
-  RegisterProps,
-  ResponseProps,
-} from "@/modules/LoginPageModules/props";
-import { createAuthClient } from "better-auth/client";
+import { LoginProps, RegisterProps } from "@/modules/LoginPageModule/props";
+import { createAuthClient } from "better-auth/react";
+import { inferAdditionalFields } from "better-auth/client/plugins";
 
-const FRONTEND_URL = process.env.FRONTEND_URL;
-const BACKEND_URL = process.env.BACKEND_URL;
-
-export const authClient = createAuthClient();
+export const authClient = createAuthClient({
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  fetchOptions: {
+    credentials: "include",
+  },
+  plugins: [
+    inferAdditionalFields({
+      user: {
+        role: {
+          type: "string",
+        },
+      },
+    }),
+  ],
+});
 
 export const handleRegister = async ({
   name,
@@ -17,45 +24,29 @@ export const handleRegister = async ({
   password,
   role,
 }: RegisterProps) => {
-  const response = await fetch(`${BACKEND_URL}/api/auth/sign-up/email`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
-      email,
-      password,
-      role,
-    }),
+  const response = await authClient.signUp.email({
+    name,
+    email,
+    password,
+    role,
   });
 
-  const data: ResponseProps = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Register failed");
+  if (response.error) {
+    throw new Error(response.error.message);
   }
 
-  return data;
+  return response.data;
 };
 
 export const handleLogin = async ({ email, password }: LoginProps) => {
-  const response = await fetch(`${BACKEND_URL}/api/auth/sign-in/email`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
+  const response = await authClient.signIn.email({
+    email,
+    password,
   });
 
-  const data: ResponseProps = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Login failed");
+  if (response.error) {
+    throw new Error(response.error.message);
   }
 
-  return data;
+  return response.data;
 };

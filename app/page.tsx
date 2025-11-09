@@ -1,9 +1,13 @@
+import Footer from "@/components/elements/Footer";
 import Navbar from "@/components/elements/Navbar";
+import LandingPageModule from "@/modules/LandingPageModule";
 
 export default function Home() {
   return (
-    <main className="bg-normal-gold-gradient flex min-h-screen items-center justify-center font-jakarta-sans text-h1 text-center">
-      Panggung Seni Is Coming!
-    </main>
+    <>
+      <Navbar />
+      <LandingPageModule />
+      <Footer />
+    </>
   );
 }
