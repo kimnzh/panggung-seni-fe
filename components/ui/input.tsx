@@ -9,11 +9,13 @@ function Input({
   variant = "default",
   status = "default",
   errorText = "Error Message",
+  showError = false,
   ...props
 }: React.ComponentProps<"input"> & {
   variant?: "default" | "search";
   status?: "default" | "error";
   errorText?: string;
+  showError?: boolean;
 }) {
   return (
     <div
@@ -36,7 +38,7 @@ function Input({
         {...props}
       />
       <div className="pointer-events-none z-0 w-[calc(100%+4px)] h-[calc(100%+4px)] group-data-[status=error]:hidden bg-normal-gold-gradient opacity-0 peer-focus:opacity-100 group-data-[status=error]:opacity-0 absolute rounded-[14px] -translate-x-0.5" />
-      {status === "error" && (
+      {status === "error" && showError && (
         <div className="absolute -bottom-5 left-0 text-error-message text-b9 md:text-b8 flex gap-1 items-center">
           <AlertTriangle className="size-4" />
           {errorText}

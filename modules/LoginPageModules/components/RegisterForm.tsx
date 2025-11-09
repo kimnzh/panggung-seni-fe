@@ -9,14 +9,47 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Eye, EyeOff } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { FormEvent, useState } from "react";
+import { roles } from "../props";
+import { handleRegister } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 interface RegisterFormProps {
-  setIsRegister: Dispatch<SetStateAction<boolean>>;
+  setIsRegister: (isRegister: boolean) => void;
 }
 
 const RegisterForm = ({ setIsRegister }: RegisterFormProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  // Payload
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [role, setRole] = useState<string>(roles[0]);
+
+  // Status
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Submit
+  const handleSubmit = async (e: FormEvent) => {
+    setIsLoading(true);
+    setError(null);
+    e.preventDefault();
+
+    try {
+      const data = await handleRegister({ name, email, password, role });
+      console.log("Register successful: ", data);
+    } catch (err: any) {
+      setError(err.message || "");
+    } finally {
+      setIsLoading(false);
+    }
+
+    if (!error) {
+      redirect(process.env.NEXT_PUBLIC_FRONTEND_URL || "");
+    }
+  };
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center px-16 space-y-12">
@@ -24,17 +57,31 @@ const RegisterForm = ({ setIsRegister }: RegisterFormProps) => {
       <h1 className="text-h3">Daftar</h1>
 
       {/* Login Form */}
-      <form action="POST" className="w-full space-y-8">
-        {/* Username */}
+      <form onSubmit={handleSubmit} className="w-full space-y-8">
+        {/* Name */}
         <div>
-          <Label className="text-s7! mb-2">Username</Label>
-          <Input type="username" placeholder="Username" />
+          <Label className="text-s7! mb-2">Name</Label>
+          <Input
+            type="name"
+            placeholder="Name"
+            value={name}
+            status={error ? "error" : "default"}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </div>
 
         {/* Email */}
         <div>
           <Label className="text-s7! mb-2">Email</Label>
-          <Input type="email" placeholder="Email" />
+          <Input
+            type="email"
+            placeholder="Email"
+            value={email}
+            status={error ? "error" : "default"}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
 
         {/* Password */}
@@ -44,6 +91,10 @@ const RegisterForm = ({ setIsRegister }: RegisterFormProps) => {
             <Input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
+              value={password}
+              status={error ? "error" : "default"}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
             <div
               onClick={() => setShowPassword(!showPassword)}
@@ -63,19 +114,29 @@ const RegisterForm = ({ setIsRegister }: RegisterFormProps) => {
           <Label className="text-s7! mb-2">Role</Label>
           <DropdownMenu>
             <DropdownMenuTrigger className="w-full!" variant="outline">
-              Choice 1
+              {role}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem variant="outline">Choice 2</DropdownMenuItem>
-              <DropdownMenuItem variant="outline">Choice 3</DropdownMenuItem>
-              <DropdownMenuItem variant="outline">Choice 4</DropdownMenuItem>
+              {roles.map((role, index) => (
+                <DropdownMenuItem
+                  variant="outline"
+                  key={index}
+                  onClick={() => setRole(role)}
+                >
+                  {role}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
 
+        {error && <p className="text-error-message text-center">{error}</p>}
+
         {/* Buttons */}
         <div className="grid grid-cols-2 gap-4">
-          <Button>Daftar</Button>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Memuat..." : "Daftar"}
+          </Button>
           <Button variant="secondary" onClick={() => setIsRegister(false)}>
             Masuk
           </Button>

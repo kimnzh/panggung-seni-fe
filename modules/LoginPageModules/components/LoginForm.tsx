@@ -2,16 +2,48 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { handleLogin } from "@/lib/auth";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
-import { Dispatch, SetStateAction, useState } from "react";
+import { redirect } from "next/navigation";
+import { useState, FormEvent } from "react";
 
 interface LoginFormProps {
-  setIsRegister: Dispatch<SetStateAction<boolean>>;
+  setIsRegister: (isRegister: boolean) => void;
 }
 
 const LoginForm = ({ setIsRegister }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  // Payload
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Status
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch
+  const handleSubmit = async (e: FormEvent) => {
+    setIsLoading(true);
+    setError(null);
+    e.preventDefault();
+
+    try {
+      const data = await handleLogin({
+        email,
+        password,
+      });
+    } catch (err: any) {
+      setError(err.message || "");
+    } finally {
+      setIsLoading(false);
+    }
+
+    if (!error) {
+      redirect(process.env.NEXT_PUBLIC_FRONTEND_URL || "");
+    }
+  };
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center px-16 space-y-12">
@@ -19,11 +51,18 @@ const LoginForm = ({ setIsRegister }: LoginFormProps) => {
       <h1 className="text-h3">Masuk</h1>
 
       {/* Login Form */}
-      <form action="POST" className="w-full space-y-8">
+      <form onSubmit={handleSubmit} className="w-full space-y-8">
         {/* Email */}
         <div>
           <Label className="text-s7! mb-2">Email</Label>
-          <Input type="email" placeholder="Email" />
+          <Input
+            type="email"
+            placeholder="Email"
+            value={email}
+            status={error ? "error" : "default"}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
 
         {/* Password */}
@@ -33,6 +72,10 @@ const LoginForm = ({ setIsRegister }: LoginFormProps) => {
             <Input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
+              value={password}
+              status={error ? "error" : "default"}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
             <div
               onClick={() => setShowPassword(!showPassword)}
@@ -48,17 +91,28 @@ const LoginForm = ({ setIsRegister }: LoginFormProps) => {
         </div>
 
         {/* Forgot Password */}
-        <button
-          className="w-full text-end text-s7 cursor-pointer hover:underline"
-          onClick={() => null}
-        >
-          Lupa Password?
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="button"
+            className="text-s7 cursor-pointer hover:underline"
+            onClick={() => null}
+          >
+            Lupa Password?
+          </button>
+        </div>
+
+        {error && <p className="text-error-message text-center">{error}</p>}
 
         {/* Buttons */}
         <div className="grid grid-cols-2 gap-4">
-          <Button>Masuk</Button>
-          <Button variant="secondary" onClick={() => setIsRegister(true)}>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Memuat..." : "Masuk"}
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => setIsRegister(true)}
+          >
             Daftar
           </Button>
         </div>
