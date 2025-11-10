@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { authClient, handleLogin } from "@/lib/auth";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, FormEvent } from "react";
 
 interface LoginFormProps {
@@ -14,6 +14,7 @@ interface LoginFormProps {
 
 const LoginForm = ({ setIsRegister }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const router = useRouter();
 
   // Payload
   const [email, setEmail] = useState("");
@@ -35,9 +36,9 @@ const LoginForm = ({ setIsRegister }: LoginFormProps) => {
         password,
       });
       console.log("Login successful: ", data);
-      redirect(process.env.NEXT_PUBLIC_FRONTEND_URL || "");
+      router.replace("/");
     } catch (err: any) {
-      setError(err.message || "");
+      setError(err.message as string);
     } finally {
       setIsLoading(false);
     }
@@ -136,12 +137,12 @@ const LoginForm = ({ setIsRegister }: LoginFormProps) => {
           </div>
           Google
         </Button>
-        <Button className="bg-white hover:bg-gray font-bold text-blue-500 hover:text-blue-500">
+        {/* <Button className="bg-white hover:bg-gray font-bold text-blue-500 hover:text-blue-500">
           <div className="relative size-6">
             <Image src="/icons/facebook.svg" alt="facebook" fill />
           </div>
           Facebook
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

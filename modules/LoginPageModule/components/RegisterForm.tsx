@@ -12,7 +12,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { roles } from "../props";
 import { handleRegister } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface RegisterFormProps {
   setIsRegister: (isRegister: boolean) => void;
@@ -20,6 +20,7 @@ interface RegisterFormProps {
 
 const RegisterForm = ({ setIsRegister }: RegisterFormProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const router = useRouter();
 
   // Payload
   const [name, setName] = useState<string>("");
@@ -40,9 +41,9 @@ const RegisterForm = ({ setIsRegister }: RegisterFormProps) => {
     try {
       const data = await handleRegister({ name, email, password, role });
       console.log("Register successful: ", data);
-      redirect(process.env.NEXT_PUBLIC_FRONTEND_URL || "");
+      router.replace("/");
     } catch (err: any) {
-      setError(err.message || "Error");
+      setError(err.message as string);
     } finally {
       setIsLoading(false);
     }

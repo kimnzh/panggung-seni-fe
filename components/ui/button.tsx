@@ -44,7 +44,7 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       children={
         variant === "secondary" ? (
-          <div className="flex justify-center items-center w-full h-full bg-light-black rounded-[11px] group-hover:bg-dark-black">
+          <div className="gap-3 py-3 px-4 md:py-3 md:px-7 flex justify-center items-center w-full h-full bg-light-black rounded-[11px] group-hover:bg-dark-black">
             <span className="bg-light-gold-gradient bg-clip-text text-transparent group-hover:bg-hover-gold-gradient">
               {children}
             </span>

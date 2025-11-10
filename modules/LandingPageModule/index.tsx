@@ -1,44 +1,42 @@
 "use client";
-
-import { authClient } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
+import { handleLogout } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { LandingPageContext } from "./props";
 
-const LandingPageModule = () => {
-  const { data: session, isPending } = authClient.useSession();
+const LandingPageModule = (context: LandingPageContext) => {
   const router = useRouter();
 
-  // User data
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [role, setRole] = useState<string>("");
+  // Status
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Session handling
-  useEffect(() => {
-    if (!isPending && !session?.user) {
+  // Logout
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data = await handleLogout();
+      console.log("Logout successful: ", data);
       router.replace("/login");
+    } catch (err: any) {
+      console.log(error);
+      setError(err.message as string);
+    } finally {
+      setIsLoading(false);
     }
-
-    console.log(session?.user.role);
-
-    setName(session?.user.name as string);
-    setEmail(session?.user.email as string);
-    setRole(session?.user.role as string);
-  }, [isPending]);
-
-  // Loading screen
-  if (isPending) {
-    return (
-      <main className="bg-normal-gold-gradient flex min-h-screen items-center justify-center font-jakarta-sans text-h1 text-center pt-25">
-        Memuat...
-      </main>
-    );
-  }
+  };
 
   // Main page
   return (
-    <main className="bg-normal-gold-gradient flex min-h-screen items-center justify-center font-jakarta-sans text-h1 text-center pt-25">
-      Hi! {role} {name} {email}
+    <main className="bg-normal-gold-gradient flex flex-col min-h-screen items-center justify-center font-jakarta-sans text-h1 text-center pt-25">
+      Hi! {context.role} {context.name} {context.email}
+      {error && <p className="text-error-message text-center">{error}</p>}
+      <Button variant="secondary" disabled={isLoading} onClick={handleSubmit}>
+        Logout
+      </Button>
     </main>
   );
 };
