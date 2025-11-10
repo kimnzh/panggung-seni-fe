@@ -2,6 +2,7 @@ import { LoginProps, RegisterProps } from "@/modules/LoginPageModule/props";
 import { createAuthClient } from "better-auth/react";
 import { inferAdditionalFields } from "better-auth/client/plugins";
 
+// Better Auth Client
 export const authClient = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL as string,
   fetchOptions: {
@@ -53,10 +54,18 @@ export const handleLogin = async ({ email, password }: LoginProps) => {
   return response.data;
 };
 
+// Login with Google
 export const handleLoginGoogle = async () => {
-  const data = await authClient.signIn.social({
+  const response = await authClient.signIn.social({
     provider: "google",
+    callbackURL: process.env.NEXT_PUBLIC_FRONTEND_URL as string,
   });
+
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+
+  return response.data;
 };
 
 // Logout
