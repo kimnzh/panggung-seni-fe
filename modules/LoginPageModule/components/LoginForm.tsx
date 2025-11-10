@@ -61,7 +61,7 @@ const LoginForm = ({ setIsRegister }: LoginFormProps) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center px-16 space-y-12">
+    <div className="w-full h-full flex flex-col items-center max-md:pt-18 md:justify-center px-6 md:px-16 space-y-6 md:space-y-12">
       {/* TItle */}
       <h1 className="text-h3">Masuk</h1>
 

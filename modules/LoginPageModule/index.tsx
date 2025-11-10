@@ -30,7 +30,7 @@ const LoginPageModule = () => {
   return (
     <main className="min-h-screen flex overflow-hidden">
       {/* Left Side */}
-      <div className="flex-1/2 relative overflow-hidden rounded-r-4xl z-10">
+      <div className="flex-1/2 relative overflow-hidden rounded-r-4xl z-10 max-md:hidden">
         {/* Background Image */}
         <Image
           src="/background/login-bg.webp"
