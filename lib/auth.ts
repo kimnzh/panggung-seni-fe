@@ -12,9 +12,6 @@ export const authClient = createAuthClient({
         sameSite:
           (process.env.NODE_ENV as string) === "production" ? "none" : "lax",
         secure: (process.env.NODE_ENV as string) === "production",
-        domain: (process.env.BASE_DOMAIN as string)
-          ? `.${process.env.BASE_DOMAIN as string}`
-          : undefined,
       },
     },
   },
