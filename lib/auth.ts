@@ -7,7 +7,10 @@ export const authClient = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL as string,
   cookkies: {
     session: {
-      name: "better-auth.session",
+      name:
+        process.env.NODE_ENV === "production"
+          ? "__Secure-better-auth.session"
+          : "better-auth.session",
       options: {
         httpOnly: true,
         sameSite:
