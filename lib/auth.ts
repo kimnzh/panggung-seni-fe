@@ -5,7 +5,7 @@ import { inferAdditionalFields } from "better-auth/client/plugins";
 // Better Auth Client
 export const authClient = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL as string,
-  cookkies: {
+  cookies: {
     session: {
       options: {
         httpOnly: true,
