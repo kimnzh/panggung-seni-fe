@@ -10,10 +10,11 @@ export const authClient = createAuthClient({
       name: "better-auth.session",
       options: {
         httpOnly: true,
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-        secure: process.env.NODE_ENV === "production",
-        domain: process.env.BASE_DOMAIN
-          ? `.${process.env.BASE_DOMAIN}`
+        sameSite:
+          (process.env.NODE_ENV as string) === "production" ? "none" : "lax",
+        secure: (process.env.NODE_ENV as string) === "production",
+        domain: (process.env.BASE_DOMAIN as string)
+          ? `.${process.env.BASE_DOMAIN as string}`
           : undefined,
         path: "/",
       },
